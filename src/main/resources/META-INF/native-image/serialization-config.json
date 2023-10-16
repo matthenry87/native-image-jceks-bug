@@ -1,0 +1,20 @@
+{
+  "types":[
+    {
+      "name":"byte[]"
+    },
+    {
+      "name":"com.sun.crypto.provider.SealedObjectForKeyProtector"
+    },
+    {
+      "name":"javax.crypto.SealedObject"
+    },
+    {
+      "name":"javax.crypto.spec.SecretKeySpec"
+    }
+  ],
+  "lambdaCapturingTypes":[
+  ],
+  "proxies":[
+  ]
+}
