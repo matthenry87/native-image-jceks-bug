@@ -27,6 +27,7 @@
                     <buildArgs>
                         <arg>-H:+TraceSecurityServices</arg>
                         <arg>--enable-all-security-services</arg>
+                        <arg>--initialize-at-build-time=com.sun.crypto.provider.SunJCE</arg>
                     </buildArgs>
                 </configuration>
             </plugin>
