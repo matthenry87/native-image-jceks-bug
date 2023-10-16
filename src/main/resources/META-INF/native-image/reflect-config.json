@@ -27,5 +27,8 @@
 {
   "name":"sun.security.provider.SHA",
   "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"CipherForKeyProtector"
 }
 ]
