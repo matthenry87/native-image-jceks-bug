@@ -26,6 +26,7 @@
                 <configuration>
                     <buildArgs>
                         <arg>-H:+TraceSecurityServices</arg>
+                        <arg>--enable-all-security-services</arg>
                     </buildArgs>
                 </configuration>
             </plugin>
