@@ -36,6 +36,7 @@ class KeyService {
 	public Key retrieveKey(String keyName) {
 
 		try {
+			System.out.println(keyStoreLocation);
 
 			File file = new File(this.getClass().getClassLoader().getResource(keyStoreLocation).getFile());
 
