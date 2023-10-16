@@ -12,6 +12,8 @@ public class NativeKeystoreTestingApplication {
 
 		var partnerApiKeystorePassword = System.getenv("PARTNER_API_KEYSTORE_PASSWORD");
 
+		System.out.println(partnerApiKeystorePassword);
+
 		var keyService = new KeyService("/home/u463254/partnerAPIKeyStore", partnerApiKeystorePassword, "JCEKS");
 
 		var key = keyService.retrieveKey("commhub.jwt.key");
@@ -36,9 +38,10 @@ class KeyService {
 	public Key retrieveKey(String keyName) {
 
 		try {
+
 			System.out.println(keyStoreLocation);
 
-			File file = new File(this.getClass().getClassLoader().getResource(keyStoreLocation).getFile());
+			File file = new File(keyStoreLocation);
 
 			try (FileInputStream fis = new FileInputStream(file)) {
 
