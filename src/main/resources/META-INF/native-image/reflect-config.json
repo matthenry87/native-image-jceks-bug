@@ -29,6 +29,6 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"CipherForKeyProtector"
+  "name":"com.sun.crypto.provider.CipherForKeyProtector"
 }
 ]
