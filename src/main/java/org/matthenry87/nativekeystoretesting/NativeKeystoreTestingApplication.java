@@ -1,7 +1,7 @@
 package org.matthenry87.nativekeystoretesting;
 
-import java.io.File;
-import java.io.FileInputStream;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.security.*;
 import java.security.cert.CertificateException;
@@ -9,33 +9,25 @@ import java.util.Arrays;
 
 public class NativeKeystoreTestingApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws KeyStoreException {
 
-        var partnerApiKeystorePassword = System.getenv("PARTNER_API_KEYSTORE_PASSWORD");
+        var keyService = new KeyService("JCEKS");
 
-//		var keyService = new KeyService("C:\\keystore\\partnerAPIKeyStore", partnerApiKeystorePassword, "JCEKS");
-        var keyService = new KeyService("/home/u463254/partnerAPIKeyStore", partnerApiKeystorePassword, "JCEKS");
-
-        var key = keyService.retrieveKey("commhub.jwt.key");
-
-        System.out.println("Done: " + key.toString());
+        keyService.accessKeyStore();
     }
 
 }
 
 class KeyService {
 
-    private final String keyStoreLocation;
-    private final String keyStorePassword;
     private final String keyStoreType;
 
-    public KeyService(String keyStoreLocation, String keyStorePassword, String keyStoreType) {
-        this.keyStoreLocation = keyStoreLocation;
-        this.keyStorePassword = keyStorePassword;
+    public KeyService(String keyStoreType) {
+
         this.keyStoreType = keyStoreType;
     }
 
-    public Key retrieveKey(String keyName) {
+    public void accessKeyStore() throws KeyStoreException {
 
         Arrays.stream(Security.getProviders())
                 .map(Provider::getClass)
@@ -45,22 +37,16 @@ class KeyService {
 
         try {
 
-            File file = new File(keyStoreLocation);
+            KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+            keyStore.load(null, null);
 
-            try (FileInputStream fis = new FileInputStream(file)) {
+            KeyGenerator keygen = KeyGenerator.getInstance("HmacSHA256");
+            SecretKey key = keygen.generateKey();
 
+            keyStore.setKeyEntry("HS256", key, null, null);
 
-                KeyStore keyStore = KeyStore.getInstance(keyStoreType);
-                keyStore.load(fis, keyStorePassword.toCharArray());
-
-                var key = keyStore.getKey(keyName, keyStorePassword.toCharArray());
-
-                System.out.println(key.getAlgorithm());
-
-                return key;
-            }
         } catch (IOException | KeyStoreException | NoSuchAlgorithmException |
-                 CertificateException | UnrecoverableKeyException e) {
+                 CertificateException e) {
 
             throw new KeyServiceException("Error retrieving key from keystore", e);
         }
