@@ -28,6 +28,7 @@
                         <arg>-H:+TraceSecurityServices</arg>
                         <arg>--enable-all-security-services</arg>
                         <arg>--initialize-at-build-time=com.sun.crypto.provider,javax.crypto</arg>
+                        <arg>--enable-https</arg>
                     </buildArgs>
                 </configuration>
             </plugin>
