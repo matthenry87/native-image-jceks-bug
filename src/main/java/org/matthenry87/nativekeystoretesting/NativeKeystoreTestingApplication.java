@@ -43,7 +43,7 @@ class KeyService {
             KeyGenerator keygen = KeyGenerator.getInstance("HmacSHA256");
             SecretKey key = keygen.generateKey();
 
-            keyStore.setKeyEntry("HS256", key, null, null);
+            keyStore.setKeyEntry("HS256", key, "password".toCharArray(), null);
 
         } catch (IOException | KeyStoreException | NoSuchAlgorithmException |
                  CertificateException e) {
